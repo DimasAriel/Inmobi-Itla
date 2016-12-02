@@ -114,10 +114,10 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="http://dariel.ferreirapablo.com/Modules/PM/Edit.php" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
-                  <a href="inc/Functions/Logout.php" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="inc/Functions/Logout.php" class="btn btn-default btn-flat">Salir</a>
                 </div>
               </li>
             </ul>
@@ -153,7 +153,7 @@ desired effect
         <div class="pull-left info">
           <p><? echo $UserData['nombre'] ?></p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> En Linea</a>
         </div>
       </div>
 
@@ -162,16 +162,30 @@ desired effect
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
+                <a id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </a>
               </span>
         </div>
       </form>
+
+
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" id="MenuSer">
-
+      <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Menu</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/Dashboard.php"><i class="fa fa-circle-o"></i>Pagina Inicial</a></li>
+            <li><a href="/Modules/PM/Products.php"><i class="fa fa-circle-o"></i>Crear Publicacion</a></li>
+            <li><a href="/Modules/PM/Map.php"><i class="fa fa-circle-o"></i>Ver Modo Mapa</a></li>
+          </ul>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

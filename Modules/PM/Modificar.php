@@ -43,7 +43,7 @@ $Interface["InterfaceDesc"] = "Registrar Ventas";
               <div class="box-body">
  
         <input type="hidden" name="product_id">
-		
+    
 
         <div class="form-group input-group">
           <span class="input-group-addon">Titulo:</span>
@@ -55,6 +55,8 @@ $Interface["InterfaceDesc"] = "Registrar Ventas";
           <input type="text" class="form-control"  name="direccion" placeholder="Direccion del Vendedor " required="true" />
         </div>
                 
+<script src="http://maps.google.com/maps/api/js?sensor=false&callback=iniciar">
+</script>
 <!--
 
 function iniciar() {
@@ -69,20 +71,11 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
 <label>Agrega Tu Ubicacion Aqui! </label>
 </h3>
 <br>
-<script src="http://maps.google.com/maps/api/js?sensor=false&callback=iniciar"></script>
 
 <div id="map" style="height: 300px; position: relative; overflow: hidden;">
         
 </div>
-
-
-<!--
-        <div class="form-group input-group">
-           <span class="input-group-addon">Ubicacion:</span>
-           <input type="text" class="form-control"  name="ubicacion" />
-        </div>
--->
-      	
+       
               </div>
               <!-- /.box-body -->
 
@@ -109,7 +102,6 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
           </div>
 
         </div>
-        <!--/.col (left) -->
         <!-- right column -->
         <div class="col-md-6">
           <!-- Horizontal Form -->
@@ -136,14 +128,14 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
                 <div class="form-group">
                   <label>Categoria</label>
                   <select class="form-control" name="tipo_producto_id"> 
-					<? GetArrayAsSelect(GetCategories(), "tipo_producto_id", "tipo_producto_display", true); ?>
+          <? GetArrayAsSelect(GetCategories(), "tipo_producto_id", "tipo_producto_display", true); ?>
                   </select>
                   </div>
                
-			   <div class="form-group">
+         <div class="form-group">
                   <label>Accion</label>
                   <select class="form-control" name="tipo_acciones_id"> 
-					<? GetArrayAsSelect(GetActions(), "tipo_acciones_id", "tipo_acciones_display", true); ?>
+          <? GetArrayAsSelect(GetActions(), "tipo_acciones_id", "tipo_acciones_display", true); ?>
                   </select>
                   </div>
                
@@ -156,6 +148,8 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
               <input type="hidden" name="company_id">
               
               <div class="box-footer">
+                 <a href='{$linkEdit}' class='btn btn-info btn-sm'>Edit</a>
+                 <a href='{$linkDelete}' onclik='return validarBorrar();' class='btn btn-danger btn-sm'>Del</a>               
                 <button type="submit" class="btn btn-primary pull-right">Agregar Producto</button>
               </div>
               <!-- /.box-footer -->
@@ -231,6 +225,20 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
   initMap();
   //cargarmap1();
   });
+
+      foreach($Productos as $Producto){
+
+         $linkEdit = base_url("/Producto/?id={$Producto->id}");
+         $linkDelete = base_url("/Producto/delete/?id={$Producto->id}");
+
+        echo  "<tr>
+              <td>
+                 <a href='{$linkEdit}' class='btn btn-info btn-sm'>Editar</a>
+                 <a href='{$linkDelete}' onclik='return validarBorrar(); 'class='btn btn-danger btn-sm'>Delete</a>
+              </td>
+        </tr>";
+
+      }
 
 
 </script>

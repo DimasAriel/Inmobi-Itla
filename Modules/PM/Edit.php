@@ -23,6 +23,7 @@ $Products = GetProducts($_GET["C"]);
 		</h1>
 	</section>
 	<? foreach ($Products as $key => $P) { 
+			if($P["usuario_id"] == $UserData["id"] ) {
 			echo ""
 			?>
 
@@ -39,14 +40,16 @@ $Products = GetProducts($_GET["C"]);
 
 					<div class="photo" style='background-image:  url("/archivos/<? echo explode(",",$P["fotos"])[0] ?>"); background-size: cover; width: 300px; height: 300px; margin: 0 auto'> </div>
 					</div>
-					<a  class="btn btn-primary btn-block" href="/Modules/PM/View.php?i= <? echo $P['id'] ?>"> Ver </a>
+					<a  class="btn btn-primary btn-block" href="/Modules/PM/Editing.php?i= <? echo $P['id'] ?>"> Editar </a>
 			<div class="box-footer">
 			<? echo $P["precio"] ?>
 			</div>
 
 			</div>
 			</div>
-	<? } 
+	<? 
+	}
+	} 
 	?> 
 		
 		

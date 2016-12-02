@@ -1,7 +1,7 @@
 <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      By Pablo Ferreira
+      
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2016 <a href="#">Dimas Ariel Development</a>.</strong> Todos los derechos reservados.
@@ -201,8 +201,15 @@ if (!( [8, 9, 13, 27, 46, 110, 190].indexOf(key) !== -1 ||
     })
   });
 $('form[method="POST"]').ajaxForm(function(response) {
+  if(parseInt(response)) {
   Notify("success", "Registro Exitoso.")
-  $("input").val("");
+  console.log(response);
+  setTimeout(2000, function() {window.location})
+  window.open("/","_self")
+  } else {
+  Notify("error", "Hubo un error inesperado.")
+  console.log(response);
+  }
 }); 
 })
 $( "#client_name" ).on("keyup", function() {
@@ -245,7 +252,9 @@ $( "#client_name" ).on("keyup", function() {
     };
 	
 
+    $("#search").on("click", function() {
 
+    })
 
   </script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

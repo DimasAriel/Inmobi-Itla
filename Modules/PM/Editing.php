@@ -6,6 +6,7 @@ if (!isset($_SESSION['User'])) {
   header("Location: /");
   die();
 }
+$Producto = GetProduct($_GET["i"]);
 
 $Interface = [];
 $Interface["InterfaceDisplay"] = "Vender";
@@ -42,7 +43,7 @@ $Interface["InterfaceDesc"] = "Registrar Ventas";
            
               <div class="box-body">
  
-        <input type="hidden" name="product_id">
+        <input type="hidden" name="id">
 		
 
         <div class="form-group input-group">
@@ -120,19 +121,16 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
             <!-- /.box-header -->
             <!-- form start -->
             
-            <div class="form-group">
+
+
+        
+              <div class="box-body">
+                          <div class="form-group">
               <label for="exampleInputEmail1">Descripcion</label>
             <div class="pull-right box-tools">
                 </div>
 <textarea class="textarea" name="descripcion" placeholder="Place some text here" style="width: 100%; height: 200px; font-size:  14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>       
                 </div>
-
-          <div class="form-group input-group">
-           <span class="input-group-addon">Fotos:</span>
-           <input type="file" class="form-control"  name="fotos[]"  multiple="multiple"/>
-                </div>
-        
-              <div class="box-body">
                 <div class="form-group">
                   <label>Categoria</label>
                   <select class="form-control" name="tipo_producto_id"> 
@@ -153,7 +151,6 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
               </div>
               <!-- /.box-body -->
               <input type="hidden" name="usuario_id">
-              <input type="hidden" name="company_id">
               
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary pull-right">Agregar Producto</button>
@@ -175,13 +172,25 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
 <script src="../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 
 <script type="text/javascript">
-
+    var Producto = '<? echo json_encode($Producto) ?>'
     var Position = { "Latitude" : 0, "Longitude" : 0}
     /*global variables*/
     var defLat = 18.985188;
     var defLong = -70.494306;
     var map;
     var markers = [];
+
+
+    function fullFill() {
+      var J = JSON.parse(Producto);
+      for(var i in J) {
+        $("[name='"+i+"']").val(J[i]);
+      }
+      var ubi = J["ubicacion"].split(",");
+      defLat = parseFloat(ubi[0]);
+      defLong = parseFloat(ubi[1]);
+    }
+ 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: defLat, lng: defLong },
@@ -197,6 +206,8 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
             $("[name='ubicacion']").val(Position.Latitude + "," + Position.Longitude)
             //alert(form.find("[name='Latitude']").val() + ", " + form.find("[name='Longitude']").val());
         });
+
+        addMarkerByLatLong(defLat, defLong);
     }
     function deleteMarkers() {
         clearMarkers(null);
@@ -219,7 +230,13 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
         map.setZoom(8);
         deleteMarkers();
     }
-    
+        function addMarkerByLatLong(Lat, Long) {
+        var marker = new google.maps.Marker({
+            position: { lat: Lat, lng: Long },
+            map: map
+        });
+        markers.push(marker);
+    }
 //@{Html.RenderPartial("~/Views/Address/_Default.cshtml", Model);}
     /*fin function*/
 
@@ -228,6 +245,8 @@ var map = new google.maps.Map(document.getElementById("map"),mapOptions);}
     $(".textarea").wysihtml5();
         $("[name='_wysihtml5_mode']").remove()
 
+
+  fullFill();
   initMap();
   //cargarmap1();
   });
